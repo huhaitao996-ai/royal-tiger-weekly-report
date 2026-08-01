@@ -24,5 +24,6 @@ renderPatrol=function(){document.querySelector('#patrolContent').innerHTML='<div
 renderCities=function(w){document.querySelector('#cityTable').innerHTML=(w.cities||[]).map(x=>'<tr><td><b>'+x.city+'</b></td><td>'+x.events+'</td><td>'+money(x.sales)+'</td><td>'+money(x.fees)+'</td><td>'+x.feeRatio.toFixed(2)+'%</td><td>'+(x.humanEff!=null?money(x.humanEff)+'/人天':'—')+'</td><td>'+fmtPct(x.humanHitRate)+'</td></tr>').join('')};
 render=function(){const w=weeks[selector.value]||weeks.m7;document.querySelector('#sideWeek').textContent='当前：2026年'+w.label;document.querySelector('#trend .title').textContent=w.isMonth?w.label+'周度经营趋势':w.label+'及近5周经营趋势';renderKpis(w);renderEfficiency(w);renderPatrol(w);renderCities(w);document.querySelector('#archiveContent').innerHTML='<div class="chart-title">'+w.label+'（'+w.range+'）</div><p>'+w.archive+'</p><p class="fine">数据来源：皇家小虎浙江省区1—7月活动台账；共631条去重活动。周次按周六至周五归属，W1为2025/12/27—2026/1/2。</p>';document.querySelector('#trendInsight').innerHTML='<b>本期关键判断</b><p>'+w.insight+'</p>';document.querySelector('#quadNote').textContent='巡店数据待接入；活动维度已按'+w.label+'更新。';requestAnimationFrame(()=>{drawTrend();drawQuad(w)})};
 selector.addEventListener('change',render);
+addEventListener('resize',render);
 render();
 })();
